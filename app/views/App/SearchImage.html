@@ -1,0 +1,53 @@
+{{set . "title" "Home"}}
+{{template "header.html" .}}
+
+<div class="header">
+    <div class="pure-menu pure-menu-open pure-menu-horizontal">
+        <a class="pure-menu-heading" href="" style = "text-transform: none;">Golang Web App</a>
+    </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="span6">
+      {{template "flash.html" .}}
+    </div>
+  </div>
+  <div class="pure-g">
+      <div class="photo-box u-1 u-med-1-3 u-lrg-1-4">
+          <a href="http://revel.github.io/">
+              <img src="/public/img/revel-top.jpeg"
+                   alt="revel">
+          </a>
+      </div>
+      <div class="text-box u-1 u-med-2-3 u-lrg-3-4">
+          <div class="l-box">
+            <h1 class="text-box-head">Image Search</h1>
+            <p class="text-box-subhead">searched by Google Image Search API</p>
+            <form action="/App/SearchImage" method="POST" class="pure-form">
+              <fieldset>
+              	{{with $field := field "searchWord" .}}
+              		<input type="text" name="{{$field.Name}}" value="{{$field.Flash}}" style="text-align: left;"/>
+              	{{end}}
+                <button type="submit" class="pure-button pure-button-primary">
+                  <i class="fa fa-search"></i>
+                  Search
+                </button>
+              </fieldset>
+            </form>
+          </div>
+      </div>
+  </div>
+  {{if .resboby }}
+    {{range .resboby}}
+        <div class="photo-box u-1 u-med-1-2 u-lrg-1-3">
+            <a href="{{.OriginalContextUrl}}">
+                <img src="{{.Url}}" alt="{{.Title}}">
+            </a>
+        </div>
+    {{ end }}
+  {{end}}
+</div>
+
+{{template "footer.html" .}}
